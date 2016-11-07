@@ -5,14 +5,22 @@
 #when in competition with another). You’re going to use the stop function to ‘raise’ an error if those 
 #conditions aren’t met
 
+comp.mat <- matrix(data=NA, nrow=3, ncol=3)
+
 setup.plants <- function(repro, survival, comp.mat, names=NULL){
+  #if the user doesnt give me names, make names be a,b,c.. for as many entries as there are in repro
   if(is.null(names))
     names <- letters[seq_along(repro)]
+  #survival[] names match matrix, subset, surv and repro for the matrix
   
-  if(length(repro) != length(survive))
+  if(length(repro) != length(survival))
     stop("Reproduction and survival parameters needed for all species")
-  
+  #more tests...which?
+  #give names for each variable for each plant
   repro <- setNames(repro, names)
+  surv <- setNames(survival, names)
+  comp.mat <- setNames(comp.mat, names)
+  #defining the class
   output <- list(weight=repro, survival=survival, comp.mat= comp.mat, names=names)
   class(output) <- "plants"
   return(output)
