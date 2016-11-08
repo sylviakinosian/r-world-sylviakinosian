@@ -1,11 +1,4 @@
-#function that takes as input reproduction, survival, and competition parameters for our plant species. 
-#The program will check that both the reproduction and survival vectors are the same length (the number
-#of species in our simulation), and that the competition argument is a matrix with dimensions equal to 
-#the length of the other variables (this matrix determines the likelihood that each species will will 
-#when in competition with another). You’re going to use the stop function to ‘raise’ an error if those 
-#conditions aren’t met
-
-#class for setting up plants to use
+#function/class that takes as input reproduction, survival, and competition parameters for our plant species. 
 setup.plants <- function(repro, survival, comp.mat, names=NULL){
   #if the user doesnt give me names, make names be a,b,c.. for as many entries as there are in repro
   if(is.null(names))
@@ -39,3 +32,39 @@ comp.mat[2,3] <- 0.1
 comp.mat[3,1] <- 0.8
 comp.mat[3,2] <- 0.1
 comp.mat[3,3] <- 0.5
+
+#function to determine if the plant survives
+survive <- function(cell, info){
+  #code to check whether cell is empty or has water
+  #if(terrain[] = -number(water))
+  #{no plants can grow here}
+  #if(no plants)
+  #{yay}
+  #if(plant present already)
+  #{compete}
+  if(runif(1) <= info$survive[plant])
+    ####Do you understand why comparing that with a probability helps us draw something with that probability?
+  #$The plant survived! so do something...
+}
+
+#plants through time
+plant.timestep <- function(plants, terrain, info){
+  survive <- function(plant, info){
+    #...survive function...
+  }
+  #...looping et al...
+  return(new.plants.matrix)
+}
+
+#array??
+plants <- array("", dim=c(dim(terrain),timesteps+1)) 
+#...why timesteps+1, do you think?... because we start at t=1!
+for(i in seq_len(dim(plants)[3]))
+  plants[,,i][is.na(terrain)] <- NA
+
+#don't forget to reproduce
+plant <- reproduce(row, column, plants, info)
+
+reproduce <- function(row, col, plants, info){
+  possible.locations <- as.matrix(expand.grid(row+c(-1,0,1), col+c(-1,0,1))) #...now filter out which ones are not water-logged and reproduce there... #...being careful to check you do have somewhere to reproduce to!... return(plants)
+}
