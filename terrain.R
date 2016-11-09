@@ -28,12 +28,11 @@ diamond.step <- function(matrix){
   matrix[mean(1:nrow(matrix)),mean(1:ncol(matrix))] <- c
   return(matrix)
 }
-diamond.step(terrain)
+terrain <- diamond.step(terrain)
 
 #4: create square f(x)
 square.step <- function(matrix){
-  #run diamond step to seed center value
-  diamond.step(matrix)
+  #na.rm=TRUE ??
   #find corners (top/bottom, left/right) and center
   tL <- matrix[1,1]
   tR <- matrix[1,ncol(matrix)]
@@ -52,7 +51,7 @@ square.step <- function(matrix){
   matrix[mean(1:nrow(matrix)),ncol(matrix)] <- r
   return(matrix)
 }
-square.step(terrain)
+terrain <- square.step(terrain)
 
 #5: f(x) to fill matrix
 dia.sq.step <- function(matrix){
