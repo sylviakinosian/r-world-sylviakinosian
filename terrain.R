@@ -53,12 +53,25 @@ square.step <- function(matrix){
 }
 terrain <- square.step(terrain)
 
-#5: f(x) to fill matrix
-dia.sq.step <- function(matrix){
-  diamond.step(matrix)
-  square.step(matrix)
+#5: f(x) to fill matrix - takes dimensions, seeds, and updates
+dia.sq.step <- function(dim){
+  odd.matrix(dim)
+  mat <- odd.matrix(dim)
+  #for(subset){
+    diamond.step(mat)
+  #}
+  #for(subset){
+    #square.step(matrix)
+  #}
   #if(!na){
   #  return(matrix)
   #}
   return(matrix)
+}
+
+terrain <- dia.sq.step(5)
+
+#' function that takes terrain, changes values < 0 to NA (water)
+make.terrain <- function(){
+  
 }

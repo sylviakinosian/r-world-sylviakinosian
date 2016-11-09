@@ -1,19 +1,17 @@
 #function/class that takes as input reproduction, survival, 
 #and competition parameters for our plant species. 
 setup.plants <- function(repro, survival, comp.mat, names=NULL){
-  #if the user doesnt give names, make names be a,b,c.. for as many entries as there are in repro
+  #if the user doesnt give names, make names be a,b,c..
   if(is.null(names))
     names <- letters[seq_along(repro)]
-  #survival[] names match matrix, subset, surv and repro for the matrix
-  
   if(length(repro) != length(survival))
     stop("Reproduction and survival parameters needed for all species")
   #more tests...which?
-  
+  if(!is.matrix(comp.mat))
+    stop("Need competition probabilities in a matrix!")
   #give names for each variable for each plant
   repro <- setNames(repro, names)
   surv <- setNames(survival, names)
-  comp.mat <- setNames(comp.mat, names)
   #defining the class
   output <- list(weight=repro, survival=survival, comp.mat= comp.mat, names=names)
   class(output) <- "plants"
@@ -23,7 +21,7 @@ setup.plants <- function(repro, survival, comp.mat, names=NULL){
 #inputs for the setup.plants function/class
 repro <- c(0.2,0.4,0.6)
 survival <- c(0.8,0.6,0.2)
-comp.mat <- matrix(data=NA, nrow=3, ncol=3)
+comp.mat <- matrix(data=NA, nrow=3, ncol=3, dimnames = list(c("a","b","c"),c("a","b","c")))
 comp.mat[1,1] <- 0.5
 comp.mat[1,2] <- 0.3
 comp.mat[1,3] <- 0.8
@@ -33,6 +31,8 @@ comp.mat[2,3] <- 0.1
 comp.mat[3,1] <- 0.8
 comp.mat[3,2] <- 0.1
 comp.mat[3,3] <- 0.5
+
+fernz <- setup.plants(repro,survival,comp.mat)
 
 #function to determine if the plant survives
 survive <- function(cell, info){
