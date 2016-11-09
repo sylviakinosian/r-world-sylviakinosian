@@ -13,7 +13,7 @@ odd.matrix<- function(x){
 	mat[nrow(mat), ncol(mat)] <- rnorm(1, rnorm(1), runif(1, min=0))
 	return(mat)
 }
-terrain <- odd.matrix(7)
+terrain <- odd.matrix(5)
 
 # create diamond step f(x)
 diamond.step <- function(matrix){
@@ -54,11 +54,14 @@ square.step <- function(matrix){
 terrain <- square.step(terrain)
 
 #5: f(x) to fill matrix - takes dimensions, seeds, and updates
+#set up for a 5 by 5 matrix - will improve later
 dia.sq.step <- function(dim){
-  odd.matrix(dim)
   mat <- odd.matrix(dim)
-  #for(subset){
-    diamond.step(mat)
+  # for upper left quadrant of matrix
+  uL <- mat[1:3,1:3]
+  uL <- diamond.step(uL)
+  uL <- square.step(uL)
+  mat[1:3,1:3] <- uL
   #}
   #for(subset){
     #square.step(matrix)
