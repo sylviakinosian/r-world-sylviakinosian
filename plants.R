@@ -1,6 +1,7 @@
-#function/class that takes as input reproduction, survival, and competition parameters for our plant species. 
+#function/class that takes as input reproduction, survival, 
+#and competition parameters for our plant species. 
 setup.plants <- function(repro, survival, comp.mat, names=NULL){
-  #if the user doesnt give me names, make names be a,b,c.. for as many entries as there are in repro
+  #if the user doesnt give names, make names be a,b,c.. for as many entries as there are in repro
   if(is.null(names))
     names <- letters[seq_along(repro)]
   #survival[] names match matrix, subset, surv and repro for the matrix
@@ -66,5 +67,7 @@ for(i in seq_len(dim(plants)[3]))
 plant <- reproduce(row, column, plants, info)
 
 reproduce <- function(row, col, plants, info){
-  possible.locations <- as.matrix(expand.grid(row+c(-1,0,1), col+c(-1,0,1))) #...now filter out which ones are not water-logged and reproduce there... #...being careful to check you do have somewhere to reproduce to!... return(plants)
+  possible.locations <- as.matrix(expand.grid(row+c(-1,0,1), col+c(-1,0,1))) 
+  #...now filter out which ones are not water-logged and reproduce there... 
+  #...being careful to check you do have somewhere to reproduce to!... return(plants)
 }
