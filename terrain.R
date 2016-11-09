@@ -87,6 +87,9 @@ dia.sq.step <- function(x){
 terrain <- dia.sq.step(5)
 
 #' function that takes terrain, changes values < 0 to NA (water)
-make.terrain <- function(){
-  
+make.terrain <- function(matrix){
+  if (!is.matrix(matrix))
+    stop("Need a matrix!")
+  matrix[terrain < 0] <- NA
+  return(matrix)
 }
