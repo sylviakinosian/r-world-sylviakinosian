@@ -36,7 +36,7 @@ fernz <- setup.plants(repro,survival,comp.mat)
 
 #function to determine if the plant survives
 survive <- function(cell, info){
-  #code to check whether cell is empty or has water
+  #code to check whether terrain cell is empty or has water
   #if(terrain[] = -number(water))
   #{no plants can grow here}
   #if(no plants)
