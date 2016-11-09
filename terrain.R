@@ -24,7 +24,7 @@ diamond.step <- function(matrix){
   bR <- matrix[nrow(matrix),ncol(matrix)]
   #avg value for center
   c <- jitter(mean(tL,tR,bL,bR))
-  #find center
+  #find center, assign new value
   matrix[mean(1:nrow(matrix)),mean(1:ncol(matrix))] <- c
   return(matrix)
 }
@@ -32,6 +32,8 @@ diamond.step(terrain)
 
 #4: create square f(x)
 square.step <- function(matrix){
+  #run diamond step to seed center value
+  diamond.step(matrix)
   #find corners (top/bottom, left/right) and center
   tL <- matrix[1,1]
   tR <- matrix[1,ncol(matrix)]
