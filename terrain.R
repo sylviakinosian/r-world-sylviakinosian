@@ -55,21 +55,33 @@ terrain <- square.step(terrain)
 
 #5: f(x) to fill matrix - takes dimensions, seeds, and updates
 #set up for a 5 by 5 matrix - will improve later
-dia.sq.step <- function(dim){
-  mat <- odd.matrix(dim)
+dia.sq.step <- function(x){
+  mat <- odd.matrix(x)
+  mat <- diamond.step(mat)
+  mat <- square.step(mat)
   # for upper left quadrant of matrix
+  #dim(mat)[1] ???
   uL <- mat[1:3,1:3]
   uL <- diamond.step(uL)
   uL <- square.step(uL)
   mat[1:3,1:3] <- uL
-  #}
-  #for(subset){
-    #square.step(matrix)
-  #}
-  #if(!na){
-  #  return(matrix)
-  #}
-  return(matrix)
+  # for upper right
+  uR <- mat[1:3,3:5]
+  uR <- diamond.step(uR)
+  uR <- square.step(uR)
+  mat[1:3,3:5] <- uR
+  # for lower left
+  lL <- mat[3:5,1:3]
+  lL <- diamond.step(lL)
+  lL <- square.step(lL)
+  mat[3:5,1:3] <- lL
+  #for lower right
+  lR <- mat[3:5,3:5]
+  lR <- diamond.step(lR)
+  lR <- square.step(lR)
+  mat[3:5,3:5] <- lR
+  print(mat)
+  return(mat)
 }
 
 terrain <- dia.sq.step(5)
