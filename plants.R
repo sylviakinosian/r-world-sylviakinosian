@@ -1,5 +1,5 @@
-#function/class that takes as input reproduction, survival, 
-#and competition parameters for our plant species. 
+## Setup plants function
+#function/class that takes as input reproduction, survival, and competition parameters for our plant species. 
 setup.plants <- function(repro, survival, comp.mat, names=NULL){
   #if the user doesnt give names, make names be a,b,c..
   if(is.null(names))
@@ -13,7 +13,7 @@ setup.plants <- function(repro, survival, comp.mat, names=NULL){
   repro <- setNames(repro, names)
   surv <- setNames(survival, names)
   #defining the class
-  output <- list(weight=repro, survival=survival, comp.mat= comp.mat, names=names)
+  output <- list(repro=repro, survival=survival, comp.mat= comp.mat, names=names)
   class(output) <- "plants"
   return(output)
 }
@@ -34,21 +34,23 @@ comp.mat[3,3] <- 0.5
 
 fernz <- setup.plants(repro,survival,comp.mat)
 
-#function to determine if the plant survives
+##Survive function to determine if the plant survives (at a given timestep)
 survive <- function(cell, info){
-  #code to check whether terrain cell is empty or has water
-  #if(terrain[] = -number(water))
-  #{no plants can grow here}
-  #if(no plants)
-  #{yay}
-  #if(plant present already)
-  #{compete}
-  if(runif(1) <= info$survive[plant])
-    ####Do you understand why comparing that with a probability helps us draw something with that probability?
-  #$The plant survived! so do something...
+  #checks if a cell is NA or is under water (< 0)
+  if (is.na(cell) | cell < 0){
+    cell <- NA
+  }else{
+    #compares a random value (0:1) with the survival probablity fo each plant
+    if(runif(1) >= info$survival[plant]){
+      cell <- cell
+    }else{
+      cell <- NA
+    }
+  }
+  return(cell)
 }
 
-#plants through time
+#Timestep  - plants through time
 plant.timestep <- function(plants, terrain, info){
   survive <- function(plant, info){
     #...survive function...
