@@ -11,7 +11,7 @@ setup.plants <- function(repro, survival, comp.mat, names=NULL){
     stop("Need competition probabilities in a matrix!")
   #give names for each variable for each plant
   repro <- setNames(repro, names)
-  surv <- setNames(survival, names)
+  survival <- setNames(survival, names)
   #defining the class
   output <- list(repro=repro, survival=survival, comp.mat= comp.mat, names=names)
   class(output) <- "plants"
@@ -35,13 +35,13 @@ comp.mat[3,3] <- 0.5
 fernz <- setup.plants(repro,survival,comp.mat)
 
 ##Survive function to determine if the plant survives (at a given timestep)
-survive <- function(cell, info){
+survive <- function(cell, plants){
   #checks if a cell is NA or is under water (< 0)
   if (is.na(cell) | cell < 0){
     cell <- NA
   }else{
     #compares a random value (0:1) with the survival probablity fo each plant
-    if(runif(1) >= info$survival[plant]){
+    if(runif(1) <= plants$survival[plant]){
       cell <- cell
     }else{
       cell <- NA
@@ -51,11 +51,11 @@ survive <- function(cell, info){
 }
 
 #Timestep  - plants through time
+#set up to work with the terrain matrix from "terrain.R"
 plant.timestep <- function(plants, terrain, info){
-  survive <- function(plant, info){
-    #...survive function...
-  }
-  #...looping et al...
+  new.plants.matrix <- terrain
+  #do i even need to defnite this (?) - survive(plant, info)
+  apply(new.plants.matrix, 1, survive)
   return(new.plants.matrix)
 }
 
