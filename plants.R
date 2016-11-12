@@ -52,18 +52,28 @@ survive <- function(cell, plants){
 
 #Timestep  - plants through time
 #set up to work with the terrain matrix from "terrain.R"
-plant.timestep <- function(plants, terrain, info){
+plant.timestep <- function(plants, terrain){
   new.plants.matrix <- terrain
   #do i even need to defnite this (?) - survive(plant, info)
   apply(new.plants.matrix, 1, survive)
   return(new.plants.matrix)
 }
 
-#array??
-plants <- array("", dim=c(dim(terrain),timesteps+1)) 
-#...why timesteps+1, do you think?... because we start at t=1!
-for(i in seq_len(dim(plants)[3]))
+#Ecosystem through time
+run.plant.ecosystem <- function(plants,terrain,timestep=1){
+  #create a plant array to keep track of the plant matrix over time
+  plant.pop <- array("", dim=c(dim(terrain),timestep+1))
+  #need to get timestep working before the array will work
+  #initital plant population .. sample does not seem to be working here
+  plant.pop[1,1:5,1] <- sample(letters[1:3],1,replace=T)
+  plant.pop[2,1:5,1] <- sample(letters[1:3],5,replace=T)
+  plant.pop[3,1:5,1] <- sample(letters[1:3],5,replace=T)
+  plant.pop[4,1:5,1] <- sample(letters[1:3],5,replace=T)
+  plant.pop[5,1:5,1] <- sample(letters[1:3],5,replace=T)
+  
+  for(i in seq_len(dim(plants)[3]))
   plants[,,i][is.na(terrain)] <- NA
+}
 
 #don't forget to reproduce
 plant <- reproduce(row, column, plants, info)
