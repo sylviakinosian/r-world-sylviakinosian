@@ -60,31 +60,33 @@ terrain <- square.step(terrain)
 
 #5: f(x) to fill matrix - takes dimensions, seeds, and updates
 #set up for a 5 by 5 matrix - will improve later
+#for looping: seq(1,5,4) -> seq(1,5,2) .. subsetting matrix
 dia.sq.step <- function(x){
   mat <- odd.matrix(x)
   mat <- diamond.step(mat)
   mat <- square.step(mat)
   # for upper left quadrant of matrix
-  #dim(mat)[1] ???
-  uL <- mat[1:3,1:3]
+  #could also have used dim(mat)[1] // dim(mat[2])
+  uL <- mat[1:mean(1:nrow(mat)),1:mean(1:ncol(mat))]
   uL <- diamond.step(uL)
   uL <- square.step(uL)
-  mat[1:3,1:3] <- uL
+  mat[1:mean(1:nrow(mat)),1:mean(1:ncol(mat))] <- uL
   # for upper right
-  uR <- mat[1:3,3:5]
+  uR <- mat[1:mean(1:nrow(mat)),mean(1:ncol(mat)):ncol(mat)]
   uR <- diamond.step(uR)
   uR <- square.step(uR)
-  mat[1:3,3:5] <- uR
+  mat[1:mean(1:nrow(mat)),mean(1:ncol(mat)):ncol(mat)] <- uR
   # for lower left
-  lL <- mat[3:5,1:3]
+  lL <- mat[mean(1:nrow(mat)):row(mat),1:mean(1:ncol(mat))]
   lL <- diamond.step(lL)
   lL <- square.step(lL)
-  mat[3:5,1:3] <- lL
+  mat[mean(1:nrow(mat)):nrow(mat),1:mean(1:ncol(mat))] <- lL
   #for lower right
-  lR <- mat[3:5,3:5]
+  lR <- mat[mean(1:nrow(mat)):nrow(mat),mean(1:ncol(mat)):ncol(mat)]
   lR <- diamond.step(lR)
   lR <- square.step(lR)
-  mat[3:5,3:5] <- lR
+  mat[mean(1:nrow(mat)):nrow(mat),mean(1:ncol(mat)):ncol(mat)] <- lR
+  #write something so it stops when everything is filled
   print(mat)
   return(mat)
 }
