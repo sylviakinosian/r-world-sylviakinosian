@@ -44,7 +44,7 @@ survive <- function(cell, plants){
     if(runif(1) <= plants$survival[plant]){
       cell <- cell
     }else{
-      cell <- NA
+      cell <- ""
     }
   }
   return(cell)
@@ -63,16 +63,19 @@ plant.timestep <- function(plants, terrain){
 run.plant.ecosystem <- function(plants,terrain,timestep=1){
   #create a plant array to keep track of the plant matrix over time
   plant.pop <- array("", dim=c(dim(terrain),timestep+1))
-  #need to get timestep working before the array will work
-  #initital plant population .. sample does not seem to be working here
+  #initital plant population
   plant.pop[1,1:5,1] <- sample(letters[1:3],1,replace=T)
-  plant.pop[2,1:5,1] <- sample(letters[1:3],5,replace=T)
-  plant.pop[3,1:5,1] <- sample(letters[1:3],5,replace=T)
-  plant.pop[4,1:5,1] <- sample(letters[1:3],5,replace=T)
-  plant.pop[5,1:5,1] <- sample(letters[1:3],5,replace=T)
-  
-  for(i in seq_len(dim(plants)[3]))
-  plants[,,i][is.na(terrain)] <- NA
+  plant.pop[2,1:5,1] <- sample(letters[1:3],1,replace=T)
+  plant.pop[3,1:5,1] <- sample(letters[1:3],1,replace=T)
+  plant.pop[4,1:5,1] <- sample(letters[1:3],1,replace=T)
+  plant.pop[5,1:5,1] <- sample(letters[1:3],1,replace=T)
+  #plants surviving or dying through time
+  for(i in seq_len(dim(plant.pop)[3])){
+    plant.pop <- plant.timestep(plants,terrain)
+    if(plants[,,i][is.na(terrain)]){
+      cell <- 'NA'
+    }
+  }
 }
 
 #don't forget to reproduce

@@ -1,3 +1,8 @@
+#' writes a help file from roxygen2 !!!!
+#' write one for EACH FUNCTION
+#' !
+#' @export
+
 #create matrix with odd dimensions
 odd.matrix<- function(x){
 	#if x is an even number, f(x) adds 1 to make it odd
