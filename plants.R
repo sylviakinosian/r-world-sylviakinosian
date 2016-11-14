@@ -54,7 +54,7 @@ survive <- function(cell, plants){
 #set up to work with the terrain matrix from "terrain.R"
 plant.timestep <- function(plants, terrain){
   new.plants.matrix <- terrain
-  #do i even need to defnite this (?) - survive(plant, info)
+  #do i even need to define this (?) - survive(plant, info)
   apply(new.plants.matrix, 1, survive)
   return(new.plants.matrix)
 }
