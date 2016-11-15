@@ -74,9 +74,9 @@ run.plant.ecosystem <- function(plants,terrain,timestep=1){
   plant.pop[4,1:ncol(plant.pop),1] <- sample(inds[1:length(inds)],ncol(plant.pop),replace=T)
   plant.pop[5,1:ncol(plant.pop),1] <- sample(inds[1:length(inds)],ncol(plant.pop),replace=T)
   #loop through time, columns, rows, then adds a timestep
-  for(i in seq_len(dim(plant.pop)[3])){
-    for(j in seq_len(dim(plant.pop)[2])){
-      for(k in seq_len(dim(plant.pop)[1])){
+  for(i in 1:(dim(plant.pop)[3])){
+    for(j in 1:(dim(plant.pop)[2])){
+      for(k in 1:(dim(plant.pop)[1])){
         plant.pop <- survive(plant.pop[k,j,i],plants)
         timestep <- timestep + 1
       }
