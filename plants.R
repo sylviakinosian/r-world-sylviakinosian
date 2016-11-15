@@ -32,7 +32,7 @@ comp.mat[3,1] <- 0.8
 comp.mat[3,2] <- 0.1
 comp.mat[3,3] <- 0.5
 
-fernz <- setup.plants(repro,survival,comp.mat)
+plants <- setup.plants(repro,survival,comp.mat)
 
 ##Survive function to determine if the plant survives (at a given timestep)
 survive <- function(cell, plants){
@@ -63,7 +63,7 @@ plant.timestep <- function(plants, terrain){
 
 
 #Ecosystem through time
-run.plant.ecosystem <- function(plants,terrain,timestep=1){
+run.plant.ecosystem <- function(plants,terrain,timestep=10){
   #create a plant array to keep track of the plant matrix over time
   plant.pop <- array("", dim=c(dim(terrain),timestep))
   #initital plant population
@@ -73,23 +73,21 @@ run.plant.ecosystem <- function(plants,terrain,timestep=1){
   plant.pop[3,1:ncol(plant.pop),1] <- sample(inds[1:length(inds)],ncol(plant.pop),replace=T)
   plant.pop[4,1:ncol(plant.pop),1] <- sample(inds[1:length(inds)],ncol(plant.pop),replace=T)
   plant.pop[5,1:ncol(plant.pop),1] <- sample(inds[1:length(inds)],ncol(plant.pop),replace=T)
-  #plants surviving or dying through time
-  #loop through rows, column, for one timestep
+  #loop through rows, column, for each timestep
   for(i in seq_len(dim(plant.pop)[3])){
-    
-    for(j in 1:dim(plant.pop)[1]){
-      for(k in 1:dim(plant.pop)[2])
-        survive(plant.pop[j,k,],fernz)
+    for(j in seq_len(dim(plant.pop)[2])){
+      for(k in seq_len(dim(plant.pop)[1])){
+        survive(plant.pop[k,j,i],plants)
+        timestep <- timestep + 1
       }
-    return(plant.pop)
     }
-      
-    apply(plant.pop, 1, survive(plant.pop[,1,], fernz))
-    
     #if(plant.pop[,,i][is.na(terrain)]){
-     # cell <- 'NA'
+    #  cell <- NA
     #}
-   }
+    if(timestep == 100){
+      break
+    }
+  }
   return(plant.pop)
 }
 
