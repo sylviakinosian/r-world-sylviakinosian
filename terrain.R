@@ -100,3 +100,6 @@ make.terrain <- function(matrix){
   matrix[terrain < 0] <- NA
   return(matrix)
 }
+
+terrain <- make.terrain(terrain)
+

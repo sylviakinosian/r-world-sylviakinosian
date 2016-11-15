@@ -63,9 +63,9 @@ plant.timestep <- function(plants, terrain){
 
 
 #Ecosystem through time
-run.plant.ecosystem <- function(plants,terrain,timestep=10){
+run.plant.ecosystem <- function(plants,terrain,timestep=1){
   #create a plant array to keep track of the plant matrix over time
-  plant.pop <- array("", dim=c(dim(terrain),timestep))
+  plant.pop <- array("", dim=c(dim(terrain),timestep+1))
   #initital plant population
   inds <- c("",plants$names)
   plant.pop[1,1:ncol(plant.pop),1] <- sample(inds[1:length(inds)],ncol(plant.pop),replace=T)
@@ -77,13 +77,13 @@ run.plant.ecosystem <- function(plants,terrain,timestep=10){
   for(i in seq_len(dim(plant.pop)[3])){
     for(j in seq_len(dim(plant.pop)[2])){
       for(k in seq_len(dim(plant.pop)[1])){
-        survive(plant.pop[k,j,i],plants)
+        plant.pop <- survive(plant.pop[k,j,i],plants)
         timestep <- timestep + 1
       }
     }
-    #if(plant.pop[,,i][is.na(terrain)]){
-    #  cell <- NA
-    #}
+    if(plant.pop[,,i][is.na(terrain)]){
+      cell <- NA
+    }
     if(timestep == 100){
       break
     }
