@@ -73,7 +73,7 @@ run.plant.ecosystem <- function(plants,terrain,timestep=1){
   plant.pop[3,1:ncol(plant.pop),1] <- sample(inds[1:length(inds)],ncol(plant.pop),replace=T)
   plant.pop[4,1:ncol(plant.pop),1] <- sample(inds[1:length(inds)],ncol(plant.pop),replace=T)
   plant.pop[5,1:ncol(plant.pop),1] <- sample(inds[1:length(inds)],ncol(plant.pop),replace=T)
-  #loop through rows, column, for each timestep
+  #loop through time, columns, rows, then adds a timestep
   for(i in seq_len(dim(plant.pop)[3])){
     for(j in seq_len(dim(plant.pop)[2])){
       for(k in seq_len(dim(plant.pop)[1])){
@@ -81,9 +81,11 @@ run.plant.ecosystem <- function(plants,terrain,timestep=1){
         timestep <- timestep + 1
       }
     }
+    #makes any plants generated in water NA
     if(plant.pop[,,i][is.na(terrain)]){
       cell <- NA
     }
+    #breaks the loop after 100 timesteps
     if(timestep == 100){
       break
     }
