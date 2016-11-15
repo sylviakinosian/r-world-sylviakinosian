@@ -41,7 +41,7 @@ survive <- function(cell, plants){
     cell <- NA
   }else{
     #compares a random value (0:1) with the survival probablity fo each plant
-    if(runif(1) <= plants$survival[plant]){
+    if(runif(1) <= plants$survival[cell]){
       cell <- cell
     }else{
       cell <- ""
@@ -52,30 +52,45 @@ survive <- function(cell, plants){
 
 #Timestep  - plants through time
 #set up to work with the terrain matrix from "terrain.R"
+#looping acrossc columns and rows
 plant.timestep <- function(plants, terrain){
   new.plants.matrix <- terrain
-  #do i even need to define this (?) - survive(plant, info)
   apply(new.plants.matrix, 1, survive)
   return(new.plants.matrix)
 }
 
+# i don't want it .. i don't need it
+
+
 #Ecosystem through time
 run.plant.ecosystem <- function(plants,terrain,timestep=1){
   #create a plant array to keep track of the plant matrix over time
-  plant.pop <- array("", dim=c(dim(terrain),timestep+1))
+  plant.pop <- array("", dim=c(dim(terrain),timestep))
   #initital plant population
-  plant.pop[1,1:5,1] <- sample(letters[1:3],1,replace=T)
-  plant.pop[2,1:5,1] <- sample(letters[1:3],1,replace=T)
-  plant.pop[3,1:5,1] <- sample(letters[1:3],1,replace=T)
-  plant.pop[4,1:5,1] <- sample(letters[1:3],1,replace=T)
-  plant.pop[5,1:5,1] <- sample(letters[1:3],1,replace=T)
+  inds <- c("",plants$names)
+  plant.pop[1,1:ncol(plant.pop),1] <- sample(inds[1:length(inds)],ncol(plant.pop),replace=T)
+  plant.pop[2,1:ncol(plant.pop),1] <- sample(inds[1:length(inds)],ncol(plant.pop),replace=T)
+  plant.pop[3,1:ncol(plant.pop),1] <- sample(inds[1:length(inds)],ncol(plant.pop),replace=T)
+  plant.pop[4,1:ncol(plant.pop),1] <- sample(inds[1:length(inds)],ncol(plant.pop),replace=T)
+  plant.pop[5,1:ncol(plant.pop),1] <- sample(inds[1:length(inds)],ncol(plant.pop),replace=T)
   #plants surviving or dying through time
+  #loop through rows, column, for one timestep
   for(i in seq_len(dim(plant.pop)[3])){
-    plant.pop <- plant.timestep(plants,terrain)
-    if(plants[,,i][is.na(terrain)]){
-      cell <- 'NA'
+    
+    for(j in 1:dim(plant.pop)[1]){
+      for(k in 1:dim(plant.pop)[2])
+        survive(plant.pop[j,k,],fernz)
+      }
+    return(plant.pop)
     }
-  }
+      
+    apply(plant.pop, 1, survive(plant.pop[,1,], fernz))
+    
+    #if(plant.pop[,,i][is.na(terrain)]){
+     # cell <- 'NA'
+    #}
+   }
+  return(plant.pop)
 }
 
 #don't forget to reproduce
