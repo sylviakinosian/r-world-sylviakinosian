@@ -1,0 +1,9 @@
+Package: Azeroth
+Type: Package
+Title: A Whole New World
+Version: 0.1.0
+Author: Sylvia Kinosian
+Maintainer: Sylvia Kinosian sylvia.kinosian@gmail.com
+Description: This package builds a world and populates it with superior beings
+License: Wolf Pack Labs
+LazyData: TRUE
