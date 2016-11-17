@@ -1,4 +1,4 @@
-#' Makes an elevational grid, denotes cells with an elevation of less than 0 as water
+#' Makes an elevational grid, denotes cells with an elevation of less than 1 as water
 #' @param odd.matrix creates matrix with odd dimensions
 #' @param diamond.step fills in the center value of a matrix (or subset) by averaging the four corners
 #' @param square.step fills in the side values of a matrix (or subset) by averaging the corners and middle

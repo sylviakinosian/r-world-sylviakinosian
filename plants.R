@@ -110,6 +110,7 @@ plant <- reproduce(row, column, plants, info)
 
 reproduce <- function(row, col, plants, info){
   possible.locations <- as.matrix(expand.grid(row+c(-1,0,1), col+c(-1,0,1))) 
-  #...now filter out which ones are not water-logged and reproduce there... 
+  #filter out which ones are not water-logged and reproduce there 
+  
   #...being careful to check you do have somewhere to reproduce to!... return(plants)
 }
