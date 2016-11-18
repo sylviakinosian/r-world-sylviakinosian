@@ -1,4 +1,4 @@
-#create herbivores
+#create a class for one species of herbivores
 setup.herbivores <- function(eat, kill, repro){
   if(!is.numeric(eat) | !is.numeric(kill) | !is.numeric(repro))
       stop("Herbivores need dat numeric data")
@@ -12,15 +12,6 @@ setup.herbivores <- function(eat, kill, repro){
   return(output)
 }
 
-#herbivores move, but can't move to a cell with NA or another herbivore present
-new.loc <- function(){
-  
-}
+eat <- c(1,2,3,4,5)
 
-#eating
-#runif(to reproduce)
-#runif(to kill ... need to edit plant matrix)
-
-herbivore.timestep
-#loops everything over time
-#nesting turtles
+stegosaurus <- setup.herbivores(eat,0.5,0.2)
