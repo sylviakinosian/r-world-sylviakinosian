@@ -105,11 +105,4 @@ run.plant.ecosystem <- function(plants,terrain,timestep=1){
   return(plant.pop)
 }
 
-#don't forget to reproduce
-plant <- reproduce(row, column, plants, info)
-
-reproduce <- function(row, col, plants, info){
-  possible.locations <- as.matrix(expand.grid(row+c(-1,0,1), col+c(-1,0,1))) 
-  #...now filter out which ones are not water-logged and reproduce there... 
-  #...being careful to check you do have somewhere to reproduce to!... return(plants)
-}
+eco <- run.plant.ecosystem(plants, terrain)
