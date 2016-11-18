@@ -1,9 +1,14 @@
 #' Makes an elevational grid, denotes cells with an elevation of less than 1 as water
-#' @param odd.matrix creates matrix with odd dimensions
-#' @param diamond.step fills in the center value of a matrix (or subset) by averaging the four corners
-#' @param square.step fills in the side values of a matrix (or subset) by averaging the corners and middle
-#' @param dia.sq.step applies diamond.step and square.step to a matrix
-#' @param make.terrain akes terrain created by dia.sq.step and changes values < 0 to NA (water)
+#' odd.matrix function
+#' @param x creates matrix with x dimensions, if an even number is given function adds 1 to make it odd
+#' diamond.step function
+#' @param matrix fills in the center value of a matrix (or subset) by averaging the four corners
+#' square.step function
+#' @param matrix fills in the side values of a matrix (or subset) by averaging the corners and middle
+#' dia.sq.step function
+#' @param x creates a matrix with x (or x+1) dimensions and applies diamond.step and square.step
+#' make.terrain function
+#' @param matrix takes terrain created by dia.sq.step and changes values < 0 to NA (water)
 #' @examples 
 #' terrain <- odd.matrix(5)
 #' terrain <- diamond.step(terrain)
@@ -97,7 +102,6 @@ dia.sq.step <- function(x){
   lR <- square.step(lR)
   mat[mean(1:nrow(mat)):nrow(mat),mean(1:ncol(mat)):ncol(mat)] <- lR
   #write something so it stops when everything is filled
-  print(mat)
   return(mat)
 }
 

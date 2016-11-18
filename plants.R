@@ -30,7 +30,6 @@ setup.plants <- function(repro, survival, comp.mat, names=NULL){
     names <- letters[seq_along(repro)]
   if(length(repro) != length(survival))
     stop("Reproduction and survival parameters needed for all species")
-  #more tests...which?
   if(!is.matrix(comp.mat))
     stop("Need competition probabilities in a matrix!")
   #give names for each variable for each plant
@@ -106,11 +105,11 @@ run.plant.ecosystem <- function(plants,terrain,timestep=1){
 }
 
 #don't forget to reproduce
-plant <- reproduce(row, column, plants, info)
+#plant <- reproduce(row, column, plants, info)
 
-reproduce <- function(row, col, plants, info){
-  possible.locations <- as.matrix(expand.grid(row+c(-1,0,1), col+c(-1,0,1))) 
+#reproduce <- function(row, col, plants, info){
+ # possible.locations <- as.matrix(expand.grid(row+c(-1,0,1), col+c(-1,0,1))) 
   #filter out which ones are not water-logged and reproduce there 
   
   #...being careful to check you do have somewhere to reproduce to!... return(plants)
-}
+#}
