@@ -73,7 +73,9 @@ survive <- function(cell, plants){
   return(cell)
 }
 
-#Ecosystem through time
+#timestep function is included in the run.plant.ecosystem function (made more sense to me to do it this way)
+
+#Ecosystem through time, designed to work the terrain created in terrain.R
 run.plant.ecosystem <- function(plants,terrain,timestep=1){
   #create a plant array to keep track of the plant matrix over time
   plant.pop <- array("", dim=c(dim(terrain),timestep+1))
@@ -104,12 +106,4 @@ run.plant.ecosystem <- function(plants,terrain,timestep=1){
   return(plant.pop)
 }
 
-#don't forget to reproduce
-#plant <- reproduce(row, column, plants, info)
-
-#reproduce <- function(row, col, plants, info){
- # possible.locations <- as.matrix(expand.grid(row+c(-1,0,1), col+c(-1,0,1))) 
-  #filter out which ones are not water-logged and reproduce there 
-  
-  #...being careful to check you do have somewhere to reproduce to!... return(plants)
-#}
+eco <- run.plant.ecosystem(plants, terrain)
